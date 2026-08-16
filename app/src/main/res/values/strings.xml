@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Sony TV 音量限制</string>
+    <string name="accessibility_service_label">Sony TV 音量限制服務</string>
+    <string name="accessibility_description">限制媒體音量不超過家長設定的上限。</string>
+
+    <string name="status_active">限制已啟用</string>
+    <string name="status_inactive">限制未啟用</string>
+    <string name="status_service_disabled">請先啟用無障礙服務</string>
+    <string name="status_fixed_volume">此裝置使用固定音量，無法限制</string>
+    <string name="current_volume_format">目前音量：%1$d / %2$d</string>
+    <string name="limit_volume_format">最高音量：%1$d / %2$d</string>
+    <string name="current_volume_placeholder">目前音量：--</string>
+    <string name="limit_volume_placeholder">最高音量：--</string>
+
+    <string name="save_limit">儲存上限</string>
+    <string name="enable_limiter">啟用限制</string>
+    <string name="disable_limiter">停用限制</string>
+    <string name="open_accessibility_settings">開啟無障礙設定</string>
+    <string name="output_notice">僅限制 Android 媒體音量。HDMI ARC、CEC 或外接音響可能不受控制。</string>
+
+    <string name="create_pin_title">建立 4 位數 PIN</string>
+    <string name="enter_pin_title">輸入 PIN</string>
+    <string name="pin_hint">4 位數 PIN</string>
+    <string name="create_and_save">建立並儲存</string>
+    <string name="confirm">確認</string>
+    <string name="cancel">取消</string>
+    <string name="invalid_pin">PIN 必須是正確的 4 位數字</string>
+    <string name="limit_saved">音量上限已儲存並啟用</string>
+</resources>
