@@ -4,7 +4,7 @@
 
 - 本專案是供單一 Sony Google TV 側載使用的個人 App。
 - 核心功能只有限制 `AudioManager.STREAM_MUSIC` 的最高音量。
-- 使用 `AccessibilityService` 攔截遙控器音量增加鍵，並以週期性檢查補救其他來源造成的超限。
+- 使用 `AccessibilityService` 週期性檢查音量，讓遙控器按鍵完全保留 Sony 原生行為。
 - 這不是企業管理或不可繞過的家長控制方案；HDMI ARC、CEC、外接音響與部分藍牙裝置不在保證範圍內。
 
 ## 溝通
@@ -27,14 +27,14 @@
 - 保持最小功能，不加入多裝置、每 App 設定、網路遙控、亮度、Device Admin 或前景服務。
 - 優先使用 Android 公開 API；不要依賴 root、隱藏 API 或廠商私有 API。
 - 啟動與執行時必須尊重 `AudioManager.isVolumeFixed()`，不能在不支援的裝置上顯示限制已生效。
-- 音量增加按鍵的 down/up 事件必須一致處理，避免產生不完整的按鍵事件流。
+- 不攔截音量按鍵，不申請 `FLAG_REQUEST_FILTER_KEY_EVENTS`；長按與音量 UI 由 Sony 原生處理。
 - PIN 只保護 App 內設定，不宣稱能防止停用 AccessibilityService、清除資料或解除安裝。
 - 新增依賴、權限或背景執行機制前，先確認它對這台 Sony TV 的核心需求確實必要。
 
 ## CI 與測試
 
 - GitHub Actions 固定使用 `ubuntu-24.04`、JDK 17、Android SDK 35 與專案提交的 Gradle Wrapper。
-- 變更音量計算、按鍵處理或 PIN 邏輯時，同步新增或更新 JVM 單元測試。
+- 變更音量計算、週期檢查或 PIN 邏輯時，同步新增或更新 JVM 單元測試。
 - 推送後要確認 GitHub Actions 的 `test`、`lint`、`assembleDebug` 與 artifact 上傳全部成功。
 - GitHub-hosted runner 無法驗證 Sony 遙控器、CEC 或實際音訊路由；這些行為必須標記為實機測試項目。
 

@@ -10,6 +10,4 @@ object VolumeLimiterLogic {
         return currentVolume.coerceIn(0, safeSystemMax).coerceAtMost(safeLimit)
     }
 
-    fun shouldConsumeVolumeUp(currentVolume: Int, configuredLimit: Int, systemMax: Int): Boolean =
-        currentVolume >= normalizeLimit(configuredLimit, systemMax)
 }
