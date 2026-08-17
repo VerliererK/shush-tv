@@ -8,8 +8,8 @@
 ## 建置
 
 本專案只透過 GitHub Actions 建置，不在本機執行 Gradle。Workflow 會依序執行單元測試、
-Android lint 與 `assembleRelease`，再將 `app-release.apk` 上傳為
-`sony-tv-volume-limiter-release` artifact。
+Android lint 與 `assembleRelease`，再將版本化的 `shush-tv-v1.0.0.apk` 上傳為
+`shush-tv-release-v1.0.0` artifact。
 
 不需要安裝 Android CLI。Android SDK 套件由 `sdkmanager` 管理，APK 使用專案內提交的
 Gradle Wrapper 建置。
@@ -17,8 +17,8 @@ Gradle Wrapper 建置。
 ## 安裝
 
 1. 在 GitHub Actions 執行 **Android CI** workflow。
-2. 下載 `sony-tv-volume-limiter-release` artifact。
-3. 將 `app-release.apk` 側載到 Sony TV。
+2. 下載 `shush-tv-release-v1.0.0` artifact。
+3. 將 `shush-tv-v1.0.0.apk` 側載到 Sony TV。
 4. 開啟 App 並選擇最高音量。
 5. 建立四位數 PIN，儲存音量上限。
 6. 開啟無障礙設定並啟用 **Sony TV 音量限制服務**。

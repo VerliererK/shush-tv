@@ -44,10 +44,25 @@ jobs:
           chmod +x gradlew
           ./gradlew test lint assembleRelease
 
+      - name: Name release APK
+        id: release_apk
+        shell: bash
+        run: |
+          version_name="$(sed -n 's/^VERSION_NAME=//p' gradle.properties)"
+          if [ -z "$version_name" ]; then
+            echo "VERSION_NAME is missing from gradle.properties"
+            exit 1
+          fi
+          apk_name="shush-tv-v${version_name}.apk"
+          mkdir -p dist
+          cp app/build/outputs/apk/release/app-release.apk "dist/${apk_name}"
+          echo "apk_name=${apk_name}" >> "$GITHUB_OUTPUT"
+          echo "version_name=${version_name}" >> "$GITHUB_OUTPUT"
+
       - name: Upload release APK
         uses: actions/upload-artifact@v7
         with:
-          name: sony-tv-volume-limiter-release
-          path: app/build/outputs/apk/release/app-release.apk
+          name: shush-tv-release-v${{ steps.release_apk.outputs.version_name }}
+          path: dist/${{ steps.release_apk.outputs.apk_name }}
           if-no-files-found: error
           retention-days: 14
