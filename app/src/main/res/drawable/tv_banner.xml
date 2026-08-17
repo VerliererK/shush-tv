@@ -4,13 +4,79 @@
     android:height="180dp"
     android:viewportWidth="320"
     android:viewportHeight="180">
+
+    <!-- Background Surface -->
     <path
         android:fillColor="#101214"
         android:pathData="M0,0 H320 V180 H0 Z" />
+
+    <!-- Ambient Subtle Geometric Grid Lines -->
     <path
-        android:fillColor="#57D68D"
-        android:pathData="M72,76 L104,76 L140,48 L140,132 L104,104 L72,104 Z" />
+        android:strokeColor="#1A202A"
+        android:strokeWidth="1"
+        android:pathData="M0,45 H320 M0,135 H320 M80,0 V180 M240,0 V180" />
+
+    <!-- Concentric Acoustic Ambient Rings Behind Center -->
     <path
-        android:fillColor="#F5F7F8"
-        android:pathData="M182,78 L182,66 C182,47 196,34 216,34 C236,34 250,47 250,66 L250,78 L242,78 L242,66 C242,52 232,42 216,42 C200,42 190,52 190,66 L190,78 Z M176,78 H256 V146 H176 Z" />
+        android:strokeColor="#1D2633"
+        android:strokeWidth="1.5"
+        android:pathData="M160,20 A70,70 0 1,0 160,160 A70,70 0 1,0 160,20" />
+
+    <path
+        android:strokeColor="#161D26"
+        android:strokeWidth="1"
+        android:pathData="M160,5 A85,85 0 1,0 160,175 A85,85 0 1,0 160,5" />
+
+    <!-- Centered Emblem -->
+    <group
+        android:pivotX="48"
+        android:pivotY="48"
+        android:scaleX="1.55"
+        android:scaleY="1.55"
+        android:translateX="112"
+        android:translateY="42">
+
+        <!-- Speaker Body -->
+        <path
+            android:fillColor="#57D68D"
+            android:pathData="M12,39 L19,39 C20.8,39 22.5,38.2 23.8,36.9 L34.5,26.2 C36.6,24.1 40,25.6 40,28.6 V67.4 C40,70.4 36.6,71.9 34.5,69.8 L23.8,59.1 C22.5,57.8 20.8,57 19,57 L12,57 C9.8,57 8,55.2 8,53 V43 C8,40.8 9.8,39 12,39 Z" />
+
+        <!-- Inner Sound Wave -->
+        <path
+            android:strokeColor="#57D68D"
+            android:strokeWidth="4"
+            android:strokeLineCap="round"
+            android:pathData="M46,39 C50,43.5 50,52.5 46,57" />
+
+        <!-- Outer Sound Wave -->
+        <path
+            android:strokeColor="#57D68D"
+            android:strokeWidth="4"
+            android:strokeLineCap="round"
+            android:pathData="M54,31 C61,38.5 61,57.5 54,65" />
+
+        <!-- Lock Shackle -->
+        <path
+            android:strokeColor="#F5F7F8"
+            android:strokeWidth="3.5"
+            android:strokeLineCap="round"
+            android:pathData="M67,34 V27 C67,21.5 71.5,17 77,17 C82.5,17 87,21.5 87,27 V34" />
+
+        <!-- Lock Body -->
+        <path
+            android:fillColor="#F5F7F8"
+            android:pathData="M69,34 H85 C87.2,34 89,35.8 89,38 V48 C89,50.2 87.2,52 85,52 H69 C66.8,52 65,50.2 65,48 V38 C65,35.8 66.8,34 69,34 Z" />
+
+        <!-- Lock Keyhole Pin & Slot -->
+        <path
+            android:fillColor="#101214"
+            android:pathData="M77,41 m-2,0 a2,2 0 1,0 4,0 a2,2 0 1,0 -4,0" />
+
+        <path
+            android:strokeColor="#101214"
+            android:strokeWidth="1.8"
+            android:strokeLineCap="round"
+            android:pathData="M77,42.8 V46.2" />
+    </group>
+
 </vector>
