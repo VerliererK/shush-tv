@@ -10,8 +10,6 @@ object VolumeLimiterLogic {
         return currentVolume.coerceIn(0, safeSystemMax).coerceAtMost(safeLimit)
     }
 
-    fun nextVolumeUp(currentVolume: Int, configuredLimit: Int, systemMax: Int): Int {
-        val safeLimit = normalizeLimit(configuredLimit, systemMax)
-        return (currentVolume + 1).coerceIn(0, safeLimit)
-    }
+    fun shouldConsumeVolumeUp(currentVolume: Int, configuredLimit: Int, systemMax: Int): Boolean =
+        currentVolume >= normalizeLimit(configuredLimit, systemMax)
 }

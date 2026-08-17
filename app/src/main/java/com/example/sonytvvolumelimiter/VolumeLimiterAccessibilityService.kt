@@ -13,6 +13,7 @@ class VolumeLimiterAccessibilityService : AccessibilityService() {
     private lateinit var audioManager: AudioManager
     private lateinit var limiterPreferences: LimiterPreferences
     private val handler = Handler(Looper.getMainLooper())
+    private var blockVolumeUpUntilKeyUp = false
 
     private val volumeCheck = object : Runnable {
         override fun run() {
@@ -42,32 +43,44 @@ class VolumeLimiterAccessibilityService : AccessibilityService() {
         if (!isLimiterOperational()) return false
         if (event.keyCode != KeyEvent.KEYCODE_VOLUME_UP) return false
 
-        if (event.action == KeyEvent.ACTION_DOWN) {
-            val systemMax = audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC)
-            val current = audioManager.getStreamVolume(AudioManager.STREAM_MUSIC)
-            val target = VolumeLimiterLogic.nextVolumeUp(
-                currentVolume = current,
-                configuredLimit = limiterPreferences.maxVolume,
-                systemMax = systemMax,
-            )
-            audioManager.setStreamVolume(
-                AudioManager.STREAM_MUSIC,
-                target,
-                AudioManager.FLAG_SHOW_UI,
-            )
-        }
+        return when (event.action) {
+            KeyEvent.ACTION_DOWN -> {
+                if (event.repeatCount == 0) {
+                    val systemMax = audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC)
+                    val current = audioManager.getStreamVolume(AudioManager.STREAM_MUSIC)
+                    blockVolumeUpUntilKeyUp = VolumeLimiterLogic.shouldConsumeVolumeUp(
+                        currentVolume = current,
+                        configuredLimit = limiterPreferences.maxVolume,
+                        systemMax = systemMax,
+                    )
+                }
 
-        // Consume both ACTION_DOWN and ACTION_UP to preserve a well-formed event stream.
-        return true
+                if (blockVolumeUpUntilKeyUp) enforceLimit()
+
+                // Let Android handle volume changes below the limit. This preserves Sony's
+                // native long-press/repeat behavior.
+                blockVolumeUpUntilKeyUp
+            }
+
+            KeyEvent.ACTION_UP -> {
+                val wasBlocked = blockVolumeUpUntilKeyUp
+                blockVolumeUpUntilKeyUp = false
+                wasBlocked
+            }
+
+            else -> blockVolumeUpUntilKeyUp
+        }
     }
 
     override fun onUnbind(intent: android.content.Intent?): Boolean {
         handler.removeCallbacks(volumeCheck)
+        blockVolumeUpUntilKeyUp = false
         return super.onUnbind(intent)
     }
 
     override fun onDestroy() {
         handler.removeCallbacks(volumeCheck)
+        blockVolumeUpUntilKeyUp = false
         super.onDestroy()
     }
 
@@ -93,6 +106,6 @@ class VolumeLimiterAccessibilityService : AccessibilityService() {
             !audioManager.isVolumeFixed
 
     companion object {
-        private const val CHECK_INTERVAL_MS = 500L
+        private const val CHECK_INTERVAL_MS = 100L
     }
 }
