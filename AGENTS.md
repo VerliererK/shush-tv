@@ -34,6 +34,7 @@
 ## CI 與測試
 
 - GitHub Actions 固定使用 `ubuntu-24.04`、JDK 17、Android SDK 35 與專案提交的 Gradle Wrapper。
+- 目前 release APK 使用 CI debug signing 供個人側載；不得把 keystore 或私鑰提交進 repository。
 - 變更音量計算、週期檢查或 PIN 邏輯時，同步新增或更新 JVM 單元測試。
 - 推送後要確認 GitHub Actions 的 `test`、`lint`、`assembleDebug` 與 artifact 上傳全部成功。
 - GitHub-hosted runner 無法驗證 Sony 遙控器、CEC 或實際音訊路由；這些行為必須標記為實機測試項目。

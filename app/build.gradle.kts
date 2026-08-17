@@ -11,13 +11,15 @@ android {
         applicationId = "com.example.sonytvvolumelimiter"
         minSdk = 29
         targetSdk = 35
-        versionCode = 1
-        versionName = "0.1.0"
+        versionCode = providers.gradleProperty("VERSION_CODE").get().toInt()
+        versionName = providers.gradleProperty("VERSION_NAME").get()
     }
 
     buildTypes {
         release {
             isMinifyEnabled = false
+            // Personal TV sideload build. Use a dedicated secret keystore before public release.
+            signingConfig = signingConfigs.getByName("debug")
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro",
